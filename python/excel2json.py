@@ -7,6 +7,8 @@ import sys
 import os
 import xlwt
 import xlrd
+import json
+
 
 def excel2Json(file_path):
     # open excel
@@ -16,7 +18,28 @@ def excel2Json(file_path):
         worksheets = book.sheet_names()
         print("sheet list:")
         for sheet in worksheets:
+            result = {}
+            fin = []
+            result['children'] = []
             print('%s,%s' %(worksheets.index(sheet), sheet))
+            # for each sheet
+            sheet = book.sheet_by_index(worksheets.index(sheet))
+            # set the first row as title
+            row_title = sheet.row_values(0)
+            rowsNum = sheet.nrows
+            colsNum = sheet.ncols
+            for row in range(rowsNum):
+                if row == 0:
+                    continue
+                temp = {}
+                for col in range(colsNum):
+                    if str(row_title[col]) != '':
+                        temp[str(row_title[col])] = sheet.row_values(row)[col]
+                result["children"].append(temp)
+            json_data=json.dumps(result,indent = 4, sort_keys=True)
+
+            print(json_data)
+
 
 def getData(file_path):
     try:
