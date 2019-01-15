@@ -3,9 +3,6 @@
 # @Input    : Excel raw file
 # @Author   : Eli
 
-import sys
-import os
-import xlwt
 import xlrd
 import json
 
@@ -33,6 +30,7 @@ def excel2Json(file_path):
                     continue
                 temp = {}
                 for col in range(colsNum):
+                    # Ignore the empty cell
                     if str(row_title[col]) != '':
                         temp[str(row_title[col])] = sheet.row_values(row)[col]
                 result["children"].append(temp)
