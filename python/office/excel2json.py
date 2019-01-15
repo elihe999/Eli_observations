@@ -37,7 +37,9 @@ def excel2Json(file_path):
             json_data=json.dumps(result,indent = 4, sort_keys=True)
 
             print(json_data)
-
+            # save as test.json
+            with open("./test.json", "w", encoding='utf-8') as json_file:
+                json.dump(result, json_file)
 
 def getData(file_path):
     try:
