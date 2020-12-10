@@ -25,6 +25,20 @@ sudo apt upgrade -y
 sudo apt install apt-transport-https ca-certificates curl software-properties-common
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-sudo apt install openssh-server docker-ce -y
+sudo apt install openssh-server docker-ce mysql-server python3 -y
 sudo /etc/init.d/ssh stop
 sudo /etc/init.d/ssh start
+sudo cp ./daemon.json /etc/docker/
+sudo docker restart
+
+echo "------------------Build-------------------"
+cd /home/
+pwd
+sudo mkdir /home/gsate_data/
+sudo mkdir -p /home/gsate_data/log/apache2
+sudo mkdir /home/gsate_data/newAte
+sudo mkdir /home/gsate_data/syslog/
+sudo mkdir /home/gsate_data/tftpboot
+
+cd /home/gsate_data/newate
+git clone http://192.168.92.210:8084/root/gsate.git
